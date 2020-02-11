@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增用户</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<body>
+<center>
+    <form method="post" action="/app/modify">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ res_data.id }}">
+        请输选择性别: <input type="radio" name="gender" value="M" required>男
+        <input type="radio" name="gender" value="F" required>女<br>
+        请选择年龄: <select name="age" required>
+    </select><br>
+        请选择职业编号: <select name="occupation" required>
+    </select><br>
+        请输入邮政编码: <input type="text" value="{{ res_data.zip_code }}" name="zip_code" placeholder="" required><br>
+        <input type="submit" value="提交">
+    </form>
+    <script>
+
+        $(function () {
+            init()
+            $(":radio[name='gender'][value='{{ res_data.gender }}']").prop("checked", "checked")
+            $("select[name='age'] option[value='{{ res_data.age }}']").attr("selected", "selected");
+            $("select[name='occupation'] option[value='{{ res_data.occupation }}']").attr("selected", "selected");
+        })
+
+        function init() {
+            for (var i = 1; i < 100; i++) {
+                var opt = '<option value="' + i + '">' + i + '</option>'
+                $("select").append(opt)
+            }
+        }
+    </script>
+</center>
+
+</body>
+</html>

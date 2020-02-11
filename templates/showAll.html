@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示所有</title>
+</head>
+<body>
+<div class='container'>
+    <table align="center" cellpadding="0" cellspacing="0" border="5" width="500">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>职业</th>
+            <th>邮编</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in res_data.list %}
+            <tr>
+                <td>{{ user.pk }}</td>
+                <td>{{ user.fields.gender }}</td>
+                <td>{{ user.fields.age }}</td>
+                <td>{{ user.fields.occupation }}</td>
+                <td>{{ user.fields.zip_code }}</td>
+                <td><a href="/app/to_modify?id={{ user.pk }}">修改</a>&nbsp;<a href="/app/del?id={{ user.pk }}">删除</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p align="center">
+        <a href="javascript:to({{ res_data.up }})"> 上一页</a>
+        {{ res_data.curr_page }}/{{ res_data.total_page }}
+        <a href="javascript:to({{ res_data.next }})"> 下一页</a>
+        一共<span color="red">{{ res_data.total }}</span>条记录
+    </p>
+    <script>
+        function to(num) {
+            var url = window.location.href
+            if (url.concat("?"))
+                list = url.split("?")
+            url = list[0]
+            location.href = url + "?pageNum=" + num
+
+        }
+    </script>
+</div>
+</body>
+</html>
